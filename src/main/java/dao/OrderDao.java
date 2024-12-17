@@ -10,6 +10,7 @@ import java.sql.SQLException;
 
 import conf.Database;
 import conf.Database.*;
+import jakarta.servlet.http.Cookie;
 import model.Order;
 import java.util.Base64;
 public class OrderDao {
@@ -19,7 +20,7 @@ public class OrderDao {
         this.connection = Database.getConnection();
         assert connection != null;
     }
-    public boolean saveOrder(Order order) throws SQLException, ClassNotFoundException, IOException {
+    public String saveOrder(Order order) throws SQLException, ClassNotFoundException, IOException {
 
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
@@ -35,11 +36,11 @@ public class OrderDao {
         preparedStatement.setString(3, encoded);
         int resultSet = preparedStatement.executeUpdate();
         if(resultSet > 0) {
-            return true;
+            return encoded;
         }
-        return false;
+        return "Falid";
     }
-    public boolean updateOrder(Order order) throws SQLException, ClassNotFoundException, IOException {
+    public String updateOrder(Order order) throws SQLException, ClassNotFoundException, IOException {
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
         objectOutputStream.writeObject(order);
@@ -52,9 +53,9 @@ public class OrderDao {
         preparedStatement.setInt(2,order.getCustomer().getUser_id());
         int resultSet = preparedStatement.executeUpdate();
         if(resultSet > 0) {
-            return true;
+            return encoded;
         }
-        return false;
+        return "Falid";
     }
     public boolean exitsOrder(Order order) throws SQLException, ClassNotFoundException, IOException {
         String query = "SELECT * FROM `order` WHERE userId =?";
@@ -66,4 +67,6 @@ public class OrderDao {
         }
         return false;
     }
+
+
 }

@@ -1,3 +1,4 @@
+<%@ page import="model.Order" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -180,14 +181,28 @@
     <!-- ==========Header-Section========== -->
 
     <!-- ==========Banner-Section========== -->
+    <%
+            Order myOrder  = (Order) request.getAttribute("order");
+            if(myOrder != null){
+    %>
+    <%
+    } else {
+    %>
+   <script>
+       alert("Not found your order")
+       window.location = "index"
+   </script>
+    <%
+        }
+    %>
     <section class="details-banner hero-area bg_img seat-plan-banner" data-background="assets/images/banner/banner04.jpg">
         <div class="container">
             <div class="details-banner-wrapper">
                 <div class="details-banner-content style-two">
-                    <h3 class="title">Venus</h3>
+                    <h3 class="title">${order.getTicket().getMovie().getTitle()}</h3>
                     <div class="tags">
-                        <a href="#0">City Walk</a>
-                        <a href="#0">English - 2D</a>
+                        <a href="#0">${order.getTicket().getCinema()}</a>
+                        <a href="#0">Vietnamese | English sub - 2D</a>
                     </div>
                 </div>
             </div>
@@ -205,7 +220,7 @@
                     </a>
                 </div>
                 <div class="item date-item">
-                    <span class="date">MON, SEP 09 2020</span>
+                    <span class="date">${order.getTicket().getShowTime()}</span>
                     <select class="select-bar">
                         <option value="sc1">09:40</option>
                         <option value="sc2">13:45</option>
@@ -328,35 +343,35 @@
                         <h4 class="title">booking summery</h4>
                         <ul>
                             <li>
-                                <h6 class="subtitle">Venus</h6>
-                                <span class="info">English-2d</span>
+                                <h6 class="subtitle">${order.getTicket().getMovie().getTitle()}</h6>
+                                <span class="info">Vietnamese | English-2d</span>
                             </li>
                             <li>
-                                <h6 class="subtitle"><span>City Walk</span><span>02</span></h6>
+                                <h6 class="subtitle"><span>${order.getTicket().getCinema()}</span><span>${order.getTicket().getSeatNumber().size()}</span></h6>
                                 <div class="info"><span>10 SEP TUE, 11:00 PM</span> <span>Tickets</span></div>
                             </li>
                             <li>
-                                <h6 class="subtitle mb-0"><span>Tickets  Price</span><span>$150</span></h6>
+                                <h6 class="subtitle mb-0"><span>Tickets  Price</span><span>$${order.getTicket().getPrice()}</span></h6>
                             </li>
                         </ul>
-                        <ul class="side-shape">
-                            <li>
-                                <h6 class="subtitle"><span>combos</span><span>$57</span></h6>
-                                <span class="info"><span>2 Nachos Combo</span></span>
-                            </li>
-                            <li>
-                                <h6 class="subtitle"><span>food & bevarage</span></h6>
-                            </li>
-                        </ul>
+<%--                        <ul class="side-shape">--%>
+<%--                            <li>--%>
+<%--                                <h6 class="subtitle"><span>combos</span><span>$57</span></h6>--%>
+<%--                                <span class="info"><span>2 Nachos Combo</span></span>--%>
+<%--                            </li>--%>
+<%--                            <li>--%>
+<%--                                <h6 class="subtitle"><span>food & bevarage</span></h6>--%>
+<%--                            </li>--%>
+<%--                        </ul>--%>
                         <ul>
                             <li>
-                                <span class="info"><span>price</span><span>$207</span></span>
+                                <span class="info"><span>price</span><span>$${order.getTicket().getPrice()}</span></span>
                                 <span class="info"><span>vat</span><span>$15</span></span>
                             </li>
                         </ul>
                     </div>
                     <div class="proceed-area  text-center">
-                        <h6 class="subtitle"><span>Amount Payable</span><span>$222</span></h6>
+                        <h6 class="subtitle"><span>Amount Payable</span><span>$${order.getFinalPrice()}</span></h6>
                         <a href="#0" class="custom-button back-button">proceed</a>
                     </div>
                 </div>

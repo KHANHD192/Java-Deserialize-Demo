@@ -9,8 +9,6 @@ import java.util.List;
 import java.sql.Connection;
 import conf.Database;
 import model.Movie;
-import model.Movie.*;
-import  conf.Database.*;
 
 
 public class MovieDao {
@@ -60,6 +58,7 @@ public class MovieDao {
         }
         return null;
     }
+
 
 
 }

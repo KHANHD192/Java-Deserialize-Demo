@@ -740,7 +740,10 @@
             })
                 .then(response =>{
                     if (response.status === 200){
-                        console.log("ok");
+                        alert("Booking Successfully , then please checkout your order")
+                        window.location = "movie-checkout"
+                    }else{
+                        alert("Đã xảy ra lỗi")
                     }
                 })
         })
